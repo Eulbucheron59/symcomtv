@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Gestion des Produits {% endblock %}
+
+{% block body %}
+
+<div class="container m-5">
+
+    <h2 class="text-center text-white bg-secondary title mx-auto"> Tous les articles enregistrés en base</h2>
+
+    <div class="row justify-content-center">
+        <a href="{{ path('app_admin_products_create') }}" class="btn btn-primary mx-auto my-5">Ajouter un article</a>
+    </div>
+
+    
+    <table class="table table-responsive table-striped"> 
+
+        <tr class="text-center"> 
+            {% for row in colonnes %}
+
+                <th> {{ row|upper }} </th>
+                
+
+            {% endfor %}       
+                <th> CATEGORY </th>
+                <th></th>
+        </tr>
+        {% for p in products %}
+
+            <tr class="text-center" >
+
+                <td class="align-middle">{{ p.id }}</td>
+                <td class="align-middle">{{ p.title }}</td>
+                <td class="align-middle">{{ p.content }}</td>
+                <td class="align-middle">{{ p.price }} €</td>
+                <td class="align-middle"> <img class="img-fluid imgShowAdmin" src="{{ asset('uploads/images/')}}{{ p.picture }}"></td>
+
+                <td class="align-middle">{{ p.category.slug }}</td>
+                <td class="align-middle ">
+                    <a href="{{path('app_admin_products_edit', {'id': p.id})}}" class="btn btn-small btn-warning mb-2"> <i class="fas fa-edit"></i> </a>
+                    <a href="{{path('app_admin_products_delete', {'id': p.id})}}" class="btn btn-small btn-danger "><i class="fas fa-ban"></i></a>
+                
+                </td>
+                
+
+            </tr>
+        
+        {% endfor %}
+    
+    
+    </table>
+
+
+{% endblock %}

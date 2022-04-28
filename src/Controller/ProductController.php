@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
+use DateTime;
+use App\Entity\Comment;
 use App\Entity\Product;
+use App\Form\CommentType;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +37,7 @@ class ProductController extends AbstractController
 
     #[Route("/product/{id}", name : "app_show", requirements: ["id" => "\d+"], methods : ["GET", "POST"])]
 
-    public function show(Product $product) : Response {
+    public function show(Product $product, Request $request, EntityManagerInterface $manager) : Response {
         //$id
 
         //$productRepo = $this->getDoctrine()->getRepository(Product::class);
@@ -48,9 +53,33 @@ class ProductController extends AbstractController
         bon article avec le bon identifiant, cela pourrait très bien marcher avec le titre, le nom etc…
         Nous avons donc des fonctions beaucoup plus courte. */
 
+        $comment = new Comment;
+
+        $formComment = $this->createForm(CommentType::class, $comment);
+
+        $formComment->handleRequest($request);
+
+        $id = $product->getId();
+
+
+        if($formComment->isSubmitted() && $formComment->isValid())
+        {
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setProduct($product);
+
+            $manager->persist($comment);
+            $manager->flush();
+
+            $this->addFlash('success', "Votre Commentaire a bien été ajouté. ");
+            $this->redirectToRoute('app_show', [
+                'id'=> $id
+            ]);
+        }
+
 
         return $this->render('/product/show.html.twig', [
-            'product' => $product
+            'product' => $product,
+            'formComment' => $formComment->createView()
         ]);
     }
 

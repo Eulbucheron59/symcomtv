@@ -27,7 +27,7 @@ class ProductFixtures extends Fixture
  
         $faker = \Faker\Factory::create('fr_FR');
 
-        for($j = 0; $j <= 4; $j++) {
+        for($j = 0; $j < 4; $j++) {
             
             //A chaque tour de boucle nous créons une nouvelle catégorie (4 au total)
             $category = new Category();
@@ -45,7 +45,7 @@ class ProductFixtures extends Fixture
                         //On insère dans chaque champ de la table product (en bdd) grâce aux setteurs.
                         $product->setTitle($faker->sentence())
                         ->setContent($faker->realText($faker->numberBetween(10, 20)))
-                        ->setPrice(mt_rand(15, 35))// mt_rand (fonction php qui permet de générer un nb au hasard, en fonction des paramètres qu'on lui a donné (15, 35))
+                        ->setPrice(mt_rand(15, 999))// mt_rand (fonction php qui permet de générer un nb au hasard, en fonction des paramètres qu'on lui a donné (15, 35))
                         ->setPicture("https://picsum.photos/id/" . mt_rand(10, 100) . "/800/500")
                         ->setCategory($category);
                    

@@ -6,3 +6,8 @@ html, body {
 .main-container{
     min-height: 80vh !important;
 }
+
+.imgShowAdmin{
+    max-width: 50%;
+    max-height: 50%
+}

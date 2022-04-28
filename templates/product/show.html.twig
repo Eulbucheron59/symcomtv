@@ -8,8 +8,7 @@
 <div class="container px-5 py-5">
     <div class="card text-center " style="background-color:#ffffff;">
   <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-    <img class="img-responsive" src="{{ product.picture }}" />
-   
+    <img class="img-responsive" src="{{asset('uploads/images/')}}{{product.picture}}" />
   </div>
   <div class="card-header"><a class="text-info" href="#"> {{ product.category.name }}</a></div>
   <div class="card-body text-black">
@@ -25,6 +24,39 @@
   </div>
 
 </div>
+
+    <div class="row bg-light mb-4">
+        {{ form_start(formComment, {'attr' : {'class' : 'col-md-5 mx-auto'}}) }}
+            {{ form_row(formComment.Author, {'attr' : {'placeholder' : 'Indiquez votre USERNAME', 'maxlength' : false, 'pattern' : false}, 'label' : "Nom du produit"}) }}
+            {{ form_row(formComment.content, { 'label' : "Veuillez nous donnez votre avis" },
+            {'attr' : {'rows' : 12 }}) }}
+            <div class="row justify-content-center"> 
+                <button type="submit" class="btn btn-primary col-3">Poster</button>
+            </div>
+        {{ form_end(formComment) }}
+    </div>
+
+    <div class="comment-overflow"
+
+    <div class="row bg-secondary mb-7">
+      {% for comment in product.comments %}
+        <div class="col-md-4 py-2">
+          <span> <strong> {{ comment.Author }}</strong> </span>
+          <small class="font-italic text-muted">
+            Posté le {{ comment.createdAt|date('d/m/Y')}} à {{comment.createdAt|date('H:i:s') }}
+          </small>
+        </div>
+
+        <div class="col-md-4 py-2">
+              {{ comment.content|striptags }}
+        </div>
+
+        <h4 class="col-md-4 bg-secondary mx-auto"> </h4>
+
+
+      {% endfor %}
+    </div>
+
 
 </div>
 

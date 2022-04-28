@@ -19,46 +19,40 @@
 
 
         {% endblock %}
+
     </head>
     <body>
 
         <header>
-        {% include '_incs/_nav.html.twig' %}
-        </header>
-        
-        <main class="container-fluid main_containerp-0">
-            {% for rubrique, messages in app.flashes %}
-            {# 'app' est une variable twig qui contient toutes les informations stockées en session #}
-            {# 'flashe' stocke des messages à destination de l'utilisateur sur toutes les pages de l'application. Nous sommes obligé de boucler car on peut avoir plusieurs messages stockés #}
+            {% include '_incs/_nav.html.twig' %}    
+        </header>        
 
-            {% for rubrique, messages in app.flashes %}
-
-        <div class="row justify-content-center my-5">
-            <div class="alert alert-{{ rubrique }} alert-dismissible text-center fade show mx-auto" role="alert">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                {% for message in messages %}
-                <strong>{{ message }}</strong>
-                {% endfor %}
-            </div>
-        </div>
+        <main class="container-fluid main_container p-0">
+            {% for rubrique, messages in app.flashes  %}
+                {# 'app' est une variable twig qui contient ttes les infos stockées en session #}
+                {# 'flashes' permet de stocker des messages à destination de l'utilisateur sur ttes les pages de l'application. On est obligé de boucler car on peut avoir plrs messages stockés #}
+                <div class="row justify-content-center my-5">
+                    <div class="alert alert-{{ rubrique }} alert-dismissible col-md-5 fade show mx-auto" role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        {% for message in messages %}
+                            <strong>{{ message }}</strong>
+                        {% endfor %}
+                    </div>
+                </div>   
             {% endfor %}
 
-        {% endfor %}
-        
-        
-        {% block body %}
 
-
-        {% endblock %}
+            {% block body %}
+            {% endblock %}
         </main>
 
-         <header>
-        {% include '_incs/_footer.html.twig' %}
-        </header>
-        
+        <footer>       
+            {% include '_incs/_footer.html.twig' %}    
+        </footer>
+
         {% block javascripts %}
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-        {% endblock %}
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+        {% endblock %}    
     </body>
 </html>

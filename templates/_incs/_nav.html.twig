@@ -1,9 +1,9 @@
-<div style="min-height: 10vh !important" class="ghost">
+<div style="min-height: 15vh !important" class="ghost">
 </div>
 
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">SYMCOM</a>
+    <a class="navbar-brand" href="{{path('app_home')}}">SYMCOM</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -17,9 +17,13 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ path ('app_product') }}">Nos produits</a>
         </li>
+        {% if is_granted('ROLE_USER') %}
         <li class="nav-item">
-          <a class="nav-link" href="#">À propos</a>
+          <a class="nav-link" href="#">Profil</a>
         </li>
+
+        {% endif %}
+        
 
         {% include "_incs/_cat_nav.html.twig" %}
 
@@ -29,5 +33,28 @@
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form>
     </div>
+
+    <nav class="navbar">
+
+      <ul class="navbar-nav navbar-rigth">
+      {% if not app.user %}
+        <li class="nav-item"> <a href="{{path('app_login')}}" class="nav-link"> <i class="fas fa-user-circle"></i> <small class="text-white"> Connexion </small><a/>  </li>
+
+
+        <li class="nav-item"> <a href="{{path('app_register')}}" class="nav-link"> <i class="fab fa-wpforms"></i><small class="text-white"> Inscription </small><a/> </li>
+      {% else %}
+        <li class="nav-item"> <a href="{{path('app_logout')}}" class="nav-link"> <i class="fas fa-sign-out"></i> <small class="text-white"> Déconnexion </small><a/>  </li>
+      {% endif %}
+      {% if is_granted('ROLE_ADMIN') %}
+        <li class="nav-item"><a class="nav-link text-danger" href="{{path('app_admin')}}">BACKOFFICE</a>
+        </li>
+
+        {% endif %}
+
+
+      </ul>
+
+    </nav>
+
   </div>
 </nav>

@@ -6,6 +6,7 @@
 {% block body %}
 
 <div class="container">
+    <h1 class="display-4 mt-3 mb-4 bg-dark text-white text-center rounded shadow-lg">Catégorie : {{ category.name }}</h1>
     <div class="row justify-content-center">
 
         {% for p in category.articles %}
@@ -13,7 +14,7 @@
 
            <div class="card bg-light mx-2 col-md-3 col-sm-5 col-xs-10 mb-3 shadow-sm" style="max-width: 20rem;">
             <div class="card-header d-flex justify-content-center">
-                <img class="img-fluid" src="{{ p.picture }}">
+                <img class="img-fluid" src="{{ asset('uploads/images/')}}{{ p.picture }}">
             </div>
             <div class="card-body text-center">
                 <h4 class="card-title">{{ p.title }}</h4>
